@@ -27,6 +27,13 @@
 </body>
     <script>
         const socket = io.connect('localhost:3000');
+        socket.emit('create-new-game');
+        socket.on('room-id', (roomId)=>{
+            console.log(`Room id: ${roomId}`);
+        })
+        socket.emit('join-room') //Pass Room id
+        socket.on('you-joined', (roomId)=>{
+            console.log(`You just joined room ${roomId}`)
+        })
     </script>
-
 </html>
