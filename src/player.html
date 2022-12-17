@@ -27,11 +27,7 @@
 </body>
     <script>
         const socket = io.connect('localhost:3000');
-        socket.emit('create-new-game');
-        socket.on('room-id', (roomId)=>{
-            console.log(`Room id: ${roomId}`);
-        })
-        socket.emit('join-room') //Pass Room id
+        socket.emit('join-room', //type room id sent by creator)
         socket.on('you-joined', (roomId)=>{
             console.log(`You just joined room ${roomId}`)
         })

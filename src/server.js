@@ -10,18 +10,14 @@ console.log(PORT);
 
 io.on('connection', (client)=>{
     console.log(`client ${client.id} connected`);
-
-    client.on('nickname', (nickname)=>{
-        //nickname is saved in the database.
-    });
-    client.on('number-of-rounds', (numberOfRounds)=>{
-        //number of rounds is saved in the database.
-    })
-    client.on('create-new-game', ()=>{
+    client.on('create-new-game', (data)=>{
         let roomId = client.id;
-        io.to(client.id).emit('room-id', client.id);
+        console.log(data.nickName);
+        console.log(data.numberOfRounds);
+        io.to(client.id).emit('room-id', roomId);
         //room id saved to database
         //client id saved to database
+        //nickname is saved to database
     })
     client.on('join-room', (roomId)=>{
         client.join(roomId);
@@ -32,10 +28,12 @@ io.on('connection', (client)=>{
     })
 })
 
-app.get('/', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'index.html'))
+app.get('/producer', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'producer.html'))
 });
-
+app.get('/player', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'player.html'))
+});
 server.listen(PORT, ()=>{
     console.log(`Server listening on port ${PORT}`);
 });
