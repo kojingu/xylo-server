@@ -1,0 +1,35 @@
+{
+  "name": "xylo-server",
+  "version": "1.0.0",
+  "description": "Xylo game server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kojingu/xylo-server.git"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "express",
+    "socketio",
+    "mongodb"
+  ],
+  "author": "Tomas Gomez Velez, Nolberto Castellanos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kojingu/xylo-server/issues"
+  },
+  "homepage": "https://github.com/kojingu/xylo-server#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}
