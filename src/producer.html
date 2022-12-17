@@ -33,6 +33,7 @@
         });
         socket.on('room-id', (roomId)=>{
             console.log(`Room id: ${roomId}`);
-        })
+        });
+        socket.emit('send-sonata', "ABC");
     </script>
 </html>

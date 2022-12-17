@@ -16,13 +16,19 @@ io.on('connection', (client)=>{
         //room id saved to database
         //client id saved to database
         //nickname is saved to database
+        //courrent round set to 1
+        //number of players?
     })
     client.on('join-room', (data)=>{
         client.join(data.roomId);
         io.to(client.id).emit('you-joined', data.roomId);
-        console.log("Players client.id", client.id);
         //save client.id to database
         //save data.nickname to database
+    })
+    client.on('send-sonata', (sonata)=>{
+        //saves sonata to database
+        console.log('The sonata is: ', sonata)
+        client.broadcast.emit('receive-sonata', sonata)
     })
     client.on('disconnect', ()=>{
         console.log(`client ${client.id} disconnected`);

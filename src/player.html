@@ -28,11 +28,14 @@
     <script>
         const socket = io.connect('localhost:3000');
         socket.emit('join-room', {
-            roomId: "lwcVY86QDSJ8I-N8AAAF",//type room id sent by creator
+            roomId: "iuv58ExUIIoV6fhuAAAJ",//type room id sent by creator
             nickName: "Juan",
         }); 
         socket.on('you-joined', (roomId)=>{
             console.log(`You just joined room ${roomId}`)
         })
+        socket.on('receive-sonata', (sonata)=>{
+            console.log('I received sonata: ', sonata)
+        });
     </script>
 </html>
