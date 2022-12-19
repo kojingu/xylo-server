@@ -37,5 +37,11 @@
         socket.on('receive-sonata', (sonata)=>{
             console.log('I received sonata: ', sonata)
         });
+        socket.on('you-win-round', ()=>{
+            console.log('You won round');
+        })
+        socket.on('player-won-roud', (winner)=>{
+            console.log(`${winner} won this round`);
+        })
     </script>
 </html>
