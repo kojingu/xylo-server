@@ -40,8 +40,16 @@
         socket.on('you-win-round', ()=>{
             console.log('You won round');
         })
+        socket.emit('guess-sonata', sonata);
         socket.on('player-won-roud', (winner)=>{
             console.log(`${winner} won this round`);
+        })
+        socket.emit('producer-wins-round');
+        socket.on('game-stats', (stats)=>{
+            console.log(stats);
+        })
+        socket.on('game-end', (winner)=>{
+            console.log(winner);
         })
     </script>
 </html>
