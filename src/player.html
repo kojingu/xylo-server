@@ -27,13 +27,21 @@
 </body>
     <script>
         const socket = io.connect('localhost:3000');
-        socket.emit('create-new-game');
-        socket.on('room-id', (roomId)=>{
-            console.log(`Room id: ${roomId}`);
-        })
-        socket.emit('join-room') //Pass Room id
+        socket.emit('join-room', {
+            roomId: "iuv58ExUIIoV6fhuAAAJ",//type room id sent by creator
+            nickName: "Juan",
+        }); 
         socket.on('you-joined', (roomId)=>{
             console.log(`You just joined room ${roomId}`)
+        })
+        socket.on('receive-sonata', (sonata)=>{
+            console.log('I received sonata: ', sonata)
+        });
+        socket.on('you-win-round', ()=>{
+            console.log('You won round');
+        })
+        socket.on('player-won-roud', (winner)=>{
+            console.log(`${winner} won this round`);
         })
     </script>
 </html>
