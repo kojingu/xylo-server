@@ -9,5 +9,8 @@ function connectToDatabase(){
     .then(()=> console.log('[db] Succesfully connected'))
     .catch((err)=>console.error(`[db] ${err}`));
 }
-connectToDatabase();
-//module.exports = connectToDatabase;
+
+module.exports = connectToDatabase;
+
+
+
