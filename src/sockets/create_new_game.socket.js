@@ -1,8 +1,9 @@
 const db = require('../storage');
 
-async function createNewGame(io, client, data){
+async function createNewGame(client, data){
     let roomId = client.id;
     data = JSON.parse(data);
+    let nickname = data.nickname;
     const newGameData = {
         io_room_id: roomId,
         rounds_left: data.numberOfRounds,
@@ -11,11 +12,11 @@ async function createNewGame(io, client, data){
     const newPlayerData = {
         io_room_id: roomId,
         socket_id: client.id,
-        nickname: data.nickname,
+        nickname
     }
     const newGame = await db.gameStorage.createNewGame(newGameData);
     await db.playerStorage.createNewPlayer(newPlayerData);
-    return roomId;
+    return {roomId, nickname};
 }
 
 
