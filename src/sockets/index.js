@@ -5,8 +5,9 @@ function connectIO(server){
     const io = socketIO(server);
     io.on('connection', (client)=>{
     console.log(`client ${client.id} connected`);
-    client.on('create-new-game', (data)=>{
-        createNewGame(io, client, data);
+    client.on('create-new-game', async (data)=>{
+        const roomId = await createNewGame(io, client, data);
+        io.to(client.id).emit('room-id', roomId);
     })
     // client.on('join-room', (data)=>{
     //     client.join(data.roomId);
