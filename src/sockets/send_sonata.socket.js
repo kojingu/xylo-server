@@ -7,6 +7,7 @@ async function sendSonata(client, data){
         socket_id: client.id
     }
     await db.gameStorage.addSonata(sonataData);
+    return data.sonata;
 }
 
 

@@ -19,9 +19,9 @@ function connectIO(server){
         io.emit('player-joined', nickname);
     })
     client.on('send-sonata', async (data)=>{
-        //saves sonata to database
-        sendSonata(client, data);
-        //client.broadcast.emit('receive-sonata', sonata)
+        const sonata = await sendSonata(client, data);
+        console.log(sonata);
+        client.broadcast.emit('receive-sonata', sonata)
     })
     // client.on('guess-sonata', (sonataGuess)=>{
     //     //compare sonata with the one in database
