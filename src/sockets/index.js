@@ -1,6 +1,7 @@
 const socketIO = require("socket.io");
 const createNewGame = require("./create_new_game.socket");
 const joinRoom = require('./join_room.socket');
+const sendSonata = require('./send_sonata.socket');
 
 function connectIO(server){
     const io = socketIO(server);
@@ -16,16 +17,12 @@ function connectIO(server){
         const {roomId, nickname} = await joinRoom(client, data);
         io.to(client.id).emit('you-joined', roomId);
         io.emit('player-joined', nickname);
-        //Send signal to game creator that player joined room
-        //save client.id to database
-        //save data.nickname to database
     })
-    // //Send signal to start game.
-    // client.on('send-sonata', (sonata)=>{
-    //     //saves sonata to database
-    //     console.log('The sonata is: ', sonata)
-    //     client.broadcast.emit('receive-sonata', sonata)
-    // })
+    client.on('send-sonata', async (data)=>{
+        //saves sonata to database
+        sendSonata(client, data);
+        //client.broadcast.emit('receive-sonata', sonata)
+    })
     // client.on('guess-sonata', (sonataGuess)=>{
     //     //compare sonata with the one in database
     //     //if sonataGuess === sonata && roundWinner === false
