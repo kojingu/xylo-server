@@ -2,7 +2,6 @@ const db = require('../storage');
 
 async function createNewGame(client, data){
     let roomId = client.id;
-    data = JSON.parse(data);
     let nickname = data.nickname;
     const newGameData = {
         io_room_id: roomId,

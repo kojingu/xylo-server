@@ -1,7 +1,6 @@
 const db = require('../storage');
 
 async function joinRoom(client, data){
-    data = JSON.parse(data);
     const roomId = data.roomId;
     const nickname = data.nickname;
     const newPlayerData = {

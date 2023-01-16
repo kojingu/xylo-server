@@ -2,6 +2,7 @@ const socketIO = require("socket.io");
 const createNewGame = require("./create_new_game.socket");
 const joinRoom = require('./join_room.socket');
 const sendSonata = require('./send_sonata.socket');
+const guessSonata = require('./guess_sonata.socket');
 
 function connectIO(server){
     const io = socketIO(server);
@@ -9,23 +10,30 @@ function connectIO(server){
     console.log(`client ${client.id} connected`);
     client.on('create-new-game', async (data)=>{
         const {roomId, nickname} = await createNewGame(client, data);
-        io.to(client.id).emit('room-id', roomId);
-        io.emit('player-joined', nickname);
+        await io.to(roomId).emit('room-id', roomId);
+        const clientsInRoom = await io.in(roomId).allSockets()
+        console.log(clientsInRoom)
     })
     client.on('join-room', async (data)=>{
-        client.join(data.roomId);
+        await client.join(data.roomId);
         const {roomId, nickname} = await joinRoom(client, data);
-        io.to(client.id).emit('you-joined', roomId);
-        io.emit('player-joined', nickname);
+        await io.to(roomId).emit('you-joined', roomId);
+        await client.to(roomId).emit('player-joined', nickname);
+        console.log(client.id);
+        console.log(client.rooms);
+        const clientsInRoom = await io.in(roomId).allSockets()
+        console.log(clientsInRoom)
     })
     client.on('send-sonata', async (data)=>{
         const sonata = await sendSonata(client, data);
+        const roomId = data.roomId;
         console.log(sonata);
-        client.broadcast.emit('receive-sonata', sonata)
+        await client.to(roomId).emit('receive-sonata', sonata)
     })
-    // client.on('guess-sonata', (sonataGuess)=>{
+    // client.on('guess-sonata', async (data)=>{
     //     //compare sonata with the one in database
     //     //if sonataGuess === sonata && roundWinner === false
+    //     //FUnction needs to return: round winner, issonata equal?, rounds left, 
     //         io.to(client.id).emit('you-win-round')
     //         client.broadcast.emit('player-won-round', client.id);
     //         //make changes in database
@@ -44,9 +52,8 @@ function connectIO(server){
     //                 },
     //                 rounds_left: 2
     //             })
-
     // })
-    // client.on('producer-wins-round', ()=>{
+    // // client.on('producer-wins-round', ()=>{
     //     io.to(client.id).emit('you-win-round'),
     //     client.broadcast.emit('player-won-round', client.id);
     //     //make changes in database
