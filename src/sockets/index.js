@@ -16,6 +16,7 @@ function connectIO(server){
     })
     client.on('join-room', async (data)=>{
         await client.join(data.roomId);
+        await client.leave(client.id);
         const {roomId, nickname} = await joinRoom(client, data);
         await io.to(roomId).emit('you-joined', roomId);
         await client.to(roomId).emit('player-joined', nickname);
@@ -26,9 +27,7 @@ function connectIO(server){
     })
     client.on('send-sonata', async (data)=>{
         const sonata = await sendSonata(client, data);
-        const roomId = data.roomId;
-        console.log(sonata);
-        await client.to(roomId).emit('receive-sonata', sonata)
+        await client.to([...client.rooms][0]).emit('receive-sonata', sonata);
     })
     // client.on('guess-sonata', async (data)=>{
     //     //compare sonata with the one in database
