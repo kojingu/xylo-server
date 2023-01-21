@@ -17,8 +17,6 @@ async function updateWinner(client){
         socket_id: client.id,
     }
     return await db.gameStorage.updateWinner(winnerUpdateData);
-        //if sonataGuess === sonata && roundWinner === false
-        //Function needs to return: round winner, rounds left,
 }
 
 async function getWinner(client){

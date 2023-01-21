@@ -46,16 +46,6 @@ function connectIO(server){
                 })
                 //end room
             }
-            //else
-                //send the current state of the game to all the players
-                // io.emit('game-stats', {
-                //     points: {
-                //         player1: 2,
-                //         player2: 3,
-                //         player3: 0
-                //     },
-                //     rounds_left: 2
-                // })
     })
     // // client.on('producer-wins-round', ()=>{
     //     io.to(client.id).emit('you-win-round'),

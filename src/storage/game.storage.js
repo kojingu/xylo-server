@@ -54,11 +54,16 @@ class GameStorage{
             {$inc: {rounds_won: 1}},
         );
         const game = await Game.findOne({io_room_id},
-            {rounds_left: 1});
+            {rounds_left: 1})
+            .populate('players');
+        const players = game.players.map(player=>({
+            nickame: player.nickname,
+            rounds_won: player.rounds_won
+        }));
         const player = await Player.findOne({socket_id},
             {nickname: 1})
         return {
-            nickname: player.nickname,
+            players,
             rounds_left: game.rounds_left
         }
     }
