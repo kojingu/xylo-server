@@ -7,7 +7,10 @@ const gameSchema = mongoose.Schema({
         default: 1
     },//default 1, increments everytime a new player enters room.
     rounds_left: Number, //set to number of rounds decided by room creator, incremented every time a new round starts.
-    current_sonata: String, //changes everytime a new sonata is sent by director.
+    current_sonata: {
+        type: String,
+        default: null
+    },//changes everytime a new sonata is sent by director.
     current_producer_id: String, //set to creator of the room, changes everytime a player wins.
     round_winner:{
         type: Boolean,
