@@ -2,7 +2,7 @@ const socketIO = require("socket.io");
 const createNewGame = require("./create_new_game.socket");
 const joinRoom = require('./join_room.socket');
 const sendSonata = require('./send_sonata.socket');
-const {verifySonata, getWinner} = require('../sockets/guess_sonata.socket');
+const {verifySonata, updateWinner, getWinner} = require('../sockets/guess_sonata.socket');
 
 function connectIO(server){
     const io = socketIO(server);
@@ -47,6 +47,19 @@ function connectIO(server){
                 //end room
             }
     })
+    client.on('producer-wins-round', async ()=>{
+        const winInformation = await updateWinner(client);
+        console.log(winInformation);
+        await client.broadcast.to([...client.rooms][0]).emit('player-won-round', winInformation);
+        await client.emit('you-win-round', winInformation);
+        if(winInformation.rounds_left === 0){
+            const gameWinner = await getWinner(client);
+            client.broadcast.to([...client.rooms][0]).emit('game-end', {
+                winner: gameWinner,
+            })
+            //end room
+        }
+})
     // // client.on('producer-wins-round', ()=>{
     //     io.to(client.id).emit('you-win-round'),
     //     client.broadcast.emit('player-won-round', client.id);
