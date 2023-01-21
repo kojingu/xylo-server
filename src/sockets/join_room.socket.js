@@ -9,6 +9,7 @@ async function joinRoom(client, data){
         nickname
     }
     await db.playerStorage.createNewPlayer(newPlayerData);
+    await db.gameStorage.addPlayer(roomId);
     return {roomId, nickname}
 }
 

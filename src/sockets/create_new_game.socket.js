@@ -1,7 +1,7 @@
 const db = require('../storage');
 
 async function createNewGame(client, data){
-    let roomId = client.id;
+    let roomId = [...client.rooms][0];
     let nickname = data.nickname;
     const newGameData = {
         io_room_id: roomId,
