@@ -60,26 +60,6 @@ function connectIO(server){
             //end room
         }
 })
-    // // client.on('producer-wins-round', ()=>{
-    //     io.to(client.id).emit('you-win-round'),
-    //     client.broadcast.emit('player-won-round', client.id);
-    //     //make changes in database
-    //     //if(rounds_left === 0)
-    //         io.emit('game-end', {
-    //             winner: 'Player 1',
-    //         })
-    //         //end room
-    //     //else
-    //         //send the current state of the game to all the players
-    //         io.emit('game-stats', {
-    //             points: {
-    //                 player1: 2,
-    //                 player2: 3,
-    //                 player3: 0
-    //             },
-    //             rounds_left: 2
-    //         })
-    // })
     client.on('disconnect', ()=>{
         console.log(`client ${client.id} disconnected`);
     })
