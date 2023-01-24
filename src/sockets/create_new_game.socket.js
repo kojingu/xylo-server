@@ -18,5 +18,4 @@ async function createNewGame(client, data){
     return {roomId, nickname};
 }
 
-
 module.exports = createNewGame;

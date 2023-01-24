@@ -79,3 +79,5 @@ class GameStorage{
 const gameStorage = new GameStorage();
 
 module.exports = gameStorage;
+
+module.exports = gameStorage;
