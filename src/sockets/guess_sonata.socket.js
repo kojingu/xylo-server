@@ -25,5 +25,6 @@ async function getWinner(client){
 
 module.exports = {
     verifySonata,
+    updateWinner,
     getWinner
 }
