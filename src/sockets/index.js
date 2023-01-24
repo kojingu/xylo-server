@@ -1,21 +1,25 @@
 const socketIO = require("socket.io");
 const createNewGame = require("./create_new_game.socket");
+const joinRoom = require('./join_room.socket');
 
 function connectIO(server){
     const io = socketIO(server);
     io.on('connection', (client)=>{
     console.log(`client ${client.id} connected`);
     client.on('create-new-game', async (data)=>{
-        const roomId = await createNewGame(io, client, data);
+        const {roomId, nickname} = await createNewGame(client, data);
         io.to(client.id).emit('room-id', roomId);
+        io.emit('player-joined', nickname);
     })
-    // client.on('join-room', (data)=>{
-    //     client.join(data.roomId);
-    //     io.to(client.id).emit('you-joined', data.roomId);
-    //     //Send signal to game creator that player joined room
-    //     //save client.id to database
-    //     //save data.nickname to database
-    // })
+    client.on('join-room', async (data)=>{
+        client.join(data.roomId);
+        const {roomId, nickname} = await joinRoom(client, data);
+        io.to(client.id).emit('you-joined', roomId);
+        io.emit('player-joined', nickname);
+        //Send signal to game creator that player joined room
+        //save client.id to database
+        //save data.nickname to database
+    })
     // //Send signal to start game.
     // client.on('send-sonata', (sonata)=>{
     //     //saves sonata to database
