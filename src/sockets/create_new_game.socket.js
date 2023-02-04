@@ -5,6 +5,7 @@ async function createNewGame(client, data){
     let nickname = data.nickname;
     const newGameData = {
         io_room_id: roomId,
+        
         rounds_left: data.numberOfRounds,
         current_producer_id: client.id,
     }
