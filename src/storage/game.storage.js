@@ -7,7 +7,7 @@ class GameStorage{
     //     const player = await Player.findOne({socket_id});
     //     const 
     // }
-    async createNewGame(newGameData){
+    async createGame(newGameData){
         const newGame = new Game(newGameData);
         await newGame.save();
         return newGame;
@@ -21,15 +21,12 @@ class GameStorage{
         const current_sonata = data.current_sonata;
         const socket_id = data.socket_id;
         const io_room_id = data.io_room_id;
-        //const player = await Player.findOne({socket_id})
-        //const io_room_id = player.io_room_id;
         await Game.updateOne({io_room_id},
         {
             current_sonata,
             current_producer_id: socket_id,
             round_winner: false
-        }
-        )
+        })
     }
     async verifySonata(data){
         const current_sonata = data.guessed_sonata;

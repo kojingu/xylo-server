@@ -1,11 +1,10 @@
 const db = require('../storage');
 
-async function createNewGame(client, data){
+async function createGame(client, data){
     let roomId = [...client.rooms][0];
     let nickname = data.nickname;
     const newGameData = {
         io_room_id: roomId,
-        
         rounds_left: data.numberOfRounds,
         current_producer_id: client.id,
     }
@@ -14,10 +13,11 @@ async function createNewGame(client, data){
         socket_id: client.id,
         nickname
     }
-    const newGame = await db.gameStorage.createNewGame(newGameData);
-    await db.playerStorage.createNewPlayer(newPlayerData);
+    const newGame = await db.gameStorage.createGame(newGameData);
+    await db.playerStorage.createPlayer(newPlayerData);
     return {roomId, nickname};
 }
 
-
-module.exports = createNewGame;
+module.exports = {
+    createGame
+}

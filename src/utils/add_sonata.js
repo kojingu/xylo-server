@@ -1,6 +1,6 @@
 const db = require('../storage');
 
-async function sendSonata(client, data){
+async function addSonata(client, data){
     const sonataData = {
         current_sonata: data.sonata,
         socket_id: client.id,
@@ -10,5 +10,6 @@ async function sendSonata(client, data){
     return data.sonata;
 }
 
-
-module.exports = sendSonata;
+module.exports = {
+    addSonata
+}

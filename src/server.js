@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const connectIO = require("./sockets/index");
+const connectIO = require("./events/index");
 const path = require('path');
 require('dotenv').config();
 
