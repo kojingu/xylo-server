@@ -1,4 +1,5 @@
 const db = require('../storage');
+const {updateWinner} = require('./update_winner');
 
 async function verifySonata(client, data){
     const sonataData = {
@@ -11,20 +12,6 @@ async function verifySonata(client, data){
     return await updateWinner(client);
 }
 
-async function updateWinner(client){
-    const winnerUpdateData = {
-        io_room_id: [...client.rooms][0],
-        socket_id: client.id,
-    }
-    return await db.gameStorage.updateWinner(winnerUpdateData);
-}
-
-async function getWinner(client){
-    return await db.gameStorage.getWinner([...client.rooms][0])
-}
-
 module.exports = {
-    verifySonata,
-    updateWinner,
-    getWinner
+    verifySonata
 }

@@ -9,7 +9,7 @@ class PlayerStorage {
         game.players.push(player);
         await game.save();
     }
-    async createNewPlayer(data){
+    async createPlayer(data){
         const io_room_id = data.io_room_id;
         const newPlayer = new Player(data);
         await newPlayer.save();

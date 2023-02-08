@@ -1,6 +1,6 @@
 const db = require('../storage');
 
-async function joinRoom(client, data){
+async function joinGame(client, data){
     const roomId = data.roomId;
     const nickname = data.nickname;
     const newPlayerData = {
@@ -8,9 +8,11 @@ async function joinRoom(client, data){
         socket_id: client.id,
         nickname
     }
-    await db.playerStorage.createNewPlayer(newPlayerData);
+    await db.playerStorage.createPlayer(newPlayerData);
     await db.gameStorage.addPlayer(roomId);
     return {roomId, nickname}
 }
 
-module.exports = joinRoom;
+module.exports = {
+    joinGame
+}
