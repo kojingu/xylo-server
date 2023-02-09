@@ -22,7 +22,6 @@ class GameStorage{
             current_producer_id: socket_id,
             round_winner: false
         })
-        })
     }
     async verifySonata(data){
         const current_sonata = data.guessed_sonata;

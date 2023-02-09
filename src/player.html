@@ -28,7 +28,7 @@
     <script>
         const socket = io.connect('localhost:3000');
         socket.emit('join-room', {
-            roomId: "iuv58ExUIIoV6fhuAAAJ",//type room id sent by creator
+            roomId: "iuv58ExUIIoV6fhuAAAJ",
             nickName: "Juan",
         }); 
         socket.on('you-joined', (roomId)=>{
