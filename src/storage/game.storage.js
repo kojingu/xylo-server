@@ -31,7 +31,6 @@ class GameStorage{
             io_room_id,
             round_winner: false
         })
-        console.log(isSonata);
         if(!isSonata) return false;
         return true;
     }
