@@ -1,8 +1,10 @@
-//Connect to mongo database using mongoose
 const mongoose = require('mongoose');
-//const {DB_HOST, DB_USER, DB_PASS} = require('./config')
-const uri = `mongodb://root:password@localhost:27017/`;
-//mongodb://root:password@localhost:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
+require('dotenv').config();
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = process.env.DB_PASSWORD
+const DB_HOST = process.env.DB_HOST
+const DB_PORT = process.env.DB_PORT
+const uri = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/`;
 
 function connectToDatabase(){
     mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -11,6 +13,3 @@ function connectToDatabase(){
 }
 
 module.exports = connectToDatabase;
-
-
-

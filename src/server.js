@@ -6,7 +6,6 @@ const path = require('path');
 require('dotenv').config();
 
 PORT = process.env.PORT;
-console.log(PORT);
 
 connectIO(server);
 

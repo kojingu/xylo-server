@@ -6,8 +6,7 @@ async function createNewGame(io, client, data){
     await client.leave(client.id);
     const {roomId, nickname} = await createGame(client, data);
     await io.to(roomId).emit('room-id', roomId);
-    const clientsInRoom = await io.in(roomId).allSockets()
-    console.log(clientsInRoom)
+    const clientsInRoom = await io.in(roomId).allSockets();
 }
 
 module.exports = {

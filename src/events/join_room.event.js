@@ -6,10 +6,7 @@ async function joinRoom(io, client, data){
         const {roomId, nickname} = await joinGame(client, data);
         await io.to(roomId).emit('you-joined', roomId);
         await client.broadcast.to(roomId).emit('player-joined', nickname);
-        console.log(client.id);
-        console.log(client.rooms);
-        const clientsInRoom = await io.in(roomId).allSockets()
-        console.log(clientsInRoom)
+        const clientsInRoom = await io.in(roomId).allSockets();
 }
 
 module.exports = {
