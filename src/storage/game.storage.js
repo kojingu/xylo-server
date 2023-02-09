@@ -2,11 +2,6 @@ const Game = require('../db/models/game.model');
 const Player = require('../db/models/player.model')
 
 class GameStorage{
-    // async getGame(data){
-    //     const socket_id = data.socket_id;
-    //     const player = await Player.findOne({socket_id});
-    //     const 
-    // }
     async createGame(newGameData){
         const newGame = new Game(newGameData);
         await newGame.save();
